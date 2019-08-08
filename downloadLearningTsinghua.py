@@ -48,7 +48,7 @@ rootDir = tkinter.filedialog.askdirectory(parent=root, initialdir=currdir, title
 if len(rootDir) > 0:
     print("你选择了： %s" % rootDir)
 else:
-    print('')
+    print('默认目录为该目录')
     rootDir = '.'
 
     
@@ -335,12 +335,8 @@ else:
                 filePageHtml = gzip.decompress(filePageRes.read()).decode('utf-8') 
             filePageData = json.loads(filePageHtml)
             print('%s课件共有%s个分类' % (value, filePageData['object']['records']))
-            # create directory and dowload
+            # create directory and fetch download url
             for classification in filePageData['object']['rows']:
-                try:
-                    os.mkdir(os.path.join(value, 'file', classification['bt']))
-                except:
-                    print('creat '+ os.path.join(value, 'file', classification['bt']) + ' failed!')
                 # for all classification extract its download url
                 fileListUrl = 'http://learn.tsinghua.edu.cn/b/wlxt/kj/wlkc_kjxxb/student/kjxxb/%s/%s' % (key, classification['id'])
                 fileListHeader = {
@@ -364,6 +360,13 @@ else:
                     fileListHtml = gzip.decompress(fileListRes.read()).decode('utf-8') 
                 fileListData = json.loads(fileListHtml)
                 print('%s分类下共有%d个文件' % (classification['bt'], len(fileListData['object'])))
+                
+                if len(fileListData['object']) > 0: # create directory 
+                    try:
+                        os.mkdir(os.path.join(value, 'file', classification['bt']))
+                    except:
+                        print('creat '+ os.path.join(value, 'file', classification['bt']) + ' failed!')
+                        
                 for fileObject in fileListData['object']:
                     fileList.append(
                         {'url':'http://learn.tsinghua.edu.cn/b/wlxt/kj/wlkc_kjxxb/student/downloadFile?sfgk=0&wjid=%s' % fileObject[7], 
