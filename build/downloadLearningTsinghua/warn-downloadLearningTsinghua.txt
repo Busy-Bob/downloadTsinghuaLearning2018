@@ -33,7 +33,7 @@ missing module named 'java.lang' - imported by platform (delayed, optional), C:\
 missing module named vms_lib - imported by platform (delayed, conditional, optional), C:\Users\baozhiyuan\OneDrive\MyCode\downloadTsinghuaLearning2018\downloadLearningTsinghua.py (top-level)
 missing module named termios - imported by tty (top-level), getpass (optional), C:\Users\baozhiyuan\OneDrive\MyCode\downloadTsinghuaLearning2018\downloadLearningTsinghua.py (top-level)
 missing module named grp - imported by shutil (optional), tarfile (optional), C:\Users\baozhiyuan\OneDrive\MyCode\downloadTsinghuaLearning2018\downloadLearningTsinghua.py (top-level)
+missing module named 'org.python' - imported by copy (optional), C:\Users\baozhiyuan\OneDrive\MyCode\downloadTsinghuaLearning2018\downloadLearningTsinghua.py (top-level), xml.sax (delayed, conditional)
 missing module named pwd - imported by posixpath (delayed, conditional), shutil (optional), tarfile (optional), http.server (delayed, optional), webbrowser (delayed), netrc (delayed, conditional), getpass (delayed), C:\Users\baozhiyuan\OneDrive\MyCode\downloadTsinghuaLearning2018\downloadLearningTsinghua.py (top-level)
 missing module named _dummy_threading - imported by dummy_threading (optional), C:\Users\baozhiyuan\OneDrive\MyCode\downloadTsinghuaLearning2018\downloadLearningTsinghua.py (top-level)
-missing module named 'org.python' - imported by copy (optional), C:\Users\baozhiyuan\OneDrive\MyCode\downloadTsinghuaLearning2018\downloadLearningTsinghua.py (top-level), xml.sax (delayed, conditional)
 missing module named _scproxy - imported by urllib.request (conditional)

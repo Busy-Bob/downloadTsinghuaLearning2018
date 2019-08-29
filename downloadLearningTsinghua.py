@@ -62,7 +62,7 @@ print('【0】：不使用，【1】：使用。(第一次：0)')
 if(input() == '0'):
     print("不使用备份文件！")
     if os.path.exists(os.path.join(rootDir, 'fileList.json')):
-        os.remove(path)
+        os.remove(os.path.join(rootDir, 'fileList.json'))
 else:
     print("使用本地备份文件！")
 
@@ -459,21 +459,23 @@ for fileDict in fileList:
     tempHeader = fileHeader.copy()
     tempHeader['Referer'] = fileDict['ref']
     fileReq = request.Request(fileDict['url'], headers=tempHeader, method='GET')
-    fileRes = opener.open(fileReq)
-    file_name = regex.findall(fileRes.getheader('Content-Disposition'))[0]
-    file_name = file_name.encode('latin-1').decode('utf-8')
-    if os.path.exists(os.path.join(fileDict['dir'], file_name)):
-        print("(%d/%d)已经存在文件:%s" % (num, len(fileList), file_name))
-        continue
-    print('(%d/%d)开始保存文件:%s, 文件大小%.3fMB' % (num, len(fileList), file_name, int(fileDict['size']) / 1024 / 1024))  
-    print('(%d/%d)保存路径:%s,' % (num, len(fileList), os.path.join(fileDict['dir'], file_name)))  
-    with open(os.path.join(fileDict['dir'], file_name), 'wb') as f:
-        file_size = 0  
-        while True:
-            buffer = fileRes.read(blocksize)
-            if not buffer:
-                break
-            f.write(buffer)
-            file_size += len(buffer)
-            printProgressBar(file_size , int(fileDict['size']))
-            
+    try:
+        fileRes = opener.open(fileReq)
+        file_name = regex.findall(fileRes.getheader('Content-Disposition'))[0]
+        file_name = file_name.encode('latin-1').decode('utf-8')
+        if os.path.exists(os.path.join(fileDict['dir'], file_name)):
+            print("(%d/%d)已经存在文件:%s" % (num, len(fileList), file_name))
+            continue
+        print('(%d/%d)开始保存文件:%s, 文件大小%.3fMB' % (num, len(fileList), file_name, int(fileDict['size']) / 1024 / 1024))  
+        print('(%d/%d)保存路径:%s,' % (num, len(fileList), os.path.join(fileDict['dir'], file_name)))  
+        with open(os.path.join(fileDict['dir'], file_name), 'wb') as f:
+            file_size = 0  
+            while True:
+                buffer = fileRes.read(blocksize)
+                if not buffer:
+                    break
+                f.write(buffer)
+                file_size += len(buffer)
+                printProgressBar(file_size , int(fileDict['size']))
+    except:
+        print("该文件存在一定问题，跳过文件。")
